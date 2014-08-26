@@ -50,7 +50,13 @@
 		<div class="one-third column">
       <form>
         <div class="container column">
-		<!--phpupload-->
+          <textarea id="regularTextarea" name="message"></textarea>
+        </div>
+        <div class="container column">
+          <input type="submit" value="Upload">
+        </div>
+      </form>
+      <!--phpupload-->
 	 	<?php
 	 		if(!empty($_REQUEST['message'])){
 	 			$message = $_REQUEST['message'];
@@ -60,21 +66,16 @@
 	 			if ($r){
 	 				echo '<p>ok</p>';
 	 			}else {
-	 				echo '<p> error </p>';
 	 				echo '<p>'.mysqli_error($dbc). '<br /><br />Query: ' . $q . '</p>';
 	 			}
 	 			mysqli_close($dbc);
 	 		}else{
 	 			$message = NULL;
-	 			echo '<p class="error">you forgot to enter your message!</p>';
 	 		}
 	 	?>
-          <textarea id="regularTextarea" name="message"></textarea>
-        </div>
-        <div class="container column">
-          <input type="submit" value="Upload">
-        </div>
-      </form>
+	 	<div class="container column">
+	 		<a href="slimit.php">风险计算器</a>
+	 	</div>
 		</div>
 		<div class="two-thirds column">
 			<h3>毫末和垒土</h3>
