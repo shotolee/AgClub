@@ -36,8 +36,6 @@
 </head>
 <body>
 
-
-
 	<!-- Primary Page Layout
 	================================================== -->
 
@@ -52,7 +50,26 @@
 		<div class="one-third column">
       <form>
         <div class="container column">
-          <textarea id="regularTextarea" class=""></textarea>
+		<!--phpupload-->
+	 	<?php
+	 		if(!empty($_REQUEST['message'])){
+	 			$message = $_REQUEST['message'];
+	 			require('../mysqli_connect.php');
+	 			$q = "INSERT INTO haome (message_body, message_datetime) VALUES ('$message',NOW() )";
+	 			$r = @mysqli_query ($dbc, $q);
+	 			if ($r){
+	 				echo '<p>ok</p>';
+	 			}else {
+	 				echo '<p> error </p>';
+	 				echo '<p>'.mysqli_error($dbc). '<br /><br />Query: ' . $q . '</p>';
+	 			}
+	 			mysqli_close($dbc);
+	 		}else{
+	 			$message = NULL;
+	 			echo '<p class="error">you forgot to enter your message!</p>';
+	 		}
+	 	?>
+          <textarea id="regularTextarea" name="message"></textarea>
         </div>
         <div class="container column">
           <input type="submit" value="Upload">
