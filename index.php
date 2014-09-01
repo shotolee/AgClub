@@ -64,26 +64,42 @@
 	 			$q = "INSERT INTO haome (message_body, message_datetime) VALUES ('$message',NOW() )";
 	 			$r = @mysqli_query ($dbc, $q);
 	 			if ($r){
-	 				echo '<p>ok</p>';
+	 				$message = NULL;
 	 			}else {
 	 				echo '<p>'.mysqli_error($dbc). '<br /><br />Query: ' . $q . '</p>';
-	 			}
-	 			mysqli_close($dbc);
+	 			}	
 	 		}else{
 	 			$message = NULL;
 	 		}
+	 		mysql_close($dbc);
 	 	?>
-	 	<div class="container column">
-	 		<a href="slimit.php">风险计算器</a>
-	 	</div>
+            <div class="container column">
+                <a href="slimit.php">风险计算器</a>
+            </div> 
 		</div>
 		<div class="two-thirds column">
-			<h3>毫末和垒土</h3>
-			<p>一场愉快的人生旅行</p>
+			<?php
+			require('../mysqli_connect.php');
+			$q2 = "SELECT  message_body AS ms , DATE_FORMAT(message_datetime, '%H:%i:%S %m-%d-%Y ')AS dt FROM haome ORDER BY message_datetime DESC;
+";
+			$r2 = @mysqli_query ($dbc, $q2);
+			$num = mysqli_num_rows($r2);
+			if ( $num > 0 ) {
+				echo '<div>';
+               while ($row2 = mysqli_fetch_array($r2, MYSQLI_ASSOC)) { 
+	               echo '<h4>' . $row2 ['ms'] .'</h4>';
+	               echo '<p>' . $row2 ['dt'] . '</p>';
+	               echo '<hr />';
+               } 
+               echo '</div>';
+               /* mysqli_free_result ($r2); */
+          } else {
+               echo "<p> none </p>";
+               } 
+			mysqli_close($dbc); 
+		?>
 		</div>
 	</div><!-- container -->
-
-
 <!-- End Document
 ================================================== -->
 </body>
