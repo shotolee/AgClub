@@ -44,7 +44,7 @@
 	<div class="container">
 		<div class="sixteen columns">
 			<h2 class="remove-bottom" style="margin-top: 40px">Leitu&Haome</h2>
-			<h5>Version 0.1</h5>
+			<h5>Version 0.2.0</h5>
 			<hr />
 		</div>
 		<div class="one-third column">
@@ -71,7 +71,7 @@
 	 		}else{
 	 			$message = NULL;
 	 		}
-	 		mysql_close($dbc);
+	 		mysqli_close($dbc);
 	 	?>
             <div class="container column">
                 <a href="slimit.php">风险计算器</a>
