@@ -48,7 +48,7 @@
 			<hr />
 		</div>
 		<div class="one-third column">
-      <form>
+      <form method="post">
         <div class="container column">
           <textarea id="regularTextarea" name="message"></textarea>
         </div>
@@ -58,8 +58,8 @@
       </form>
       <!--phpupload-->
 	 	<?php
-	 		if(!empty($_REQUEST['message'])){
-	 			$message = $_REQUEST['message'];
+	 		if(!empty($_POST['message'])){
+	 			$message = $_POST['message'];
 	 			require('../mysqli_connect.php');
 	 			$q = "INSERT INTO haome (message_body, message_datetime) VALUES ('$message',NOW() )";
 	 			$r = @mysqli_query ($dbc, $q);
@@ -71,7 +71,7 @@
 	 		}else{
 	 			$message = NULL;
 	 		}
-	 		mysqli_close($dbc);
+	 		mysqli_close ($dbc);
 	 	?>
             <div class="container column">
                 <a href="slimit.php">风险计算器</a>
@@ -96,7 +96,7 @@
           } else {
                echo "<p> none </p>";
                } 
-			mysqli_close($dbc); 
+			mysqli_close ($dbc); 
 		?>
 		</div>
 	</div><!-- container -->
