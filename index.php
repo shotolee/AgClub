@@ -58,9 +58,9 @@
       </form>
       <!--phpupload-->
 	 	<?php
+	 	require('mysqli_connect.php');
 	 		if(!empty($_POST['message'])){
 	 			$message = $_POST['message'];
-	 			require('../mysqli_connect.php');
 	 			$q = "INSERT INTO haome (message_body, message_datetime) VALUES ('$message',NOW() )";
 	 			$r = @mysqli_query ($dbc, $q);
 	 			if ($r){
@@ -71,6 +71,7 @@
 	 		}else{
 	 			$message = NULL;
                }
+//mysqli_close($dbc);
 	 	?>
             <div class="container column">
                 <a href="slimit.php">风险计算器</a>
@@ -78,6 +79,7 @@
 		</div>
 		<div class="two-thirds column">
 			<?php
+			//require('mysqli_connect.php');
 			$q2 = "SELECT  message_body AS ms , DATE_FORMAT(message_datetime, '%H:%i:%S %m-%d-%Y ')AS dt FROM haome ORDER BY message_datetime DESC;
 ";
 			$r2 = @mysqli_query ($dbc, $q2);
