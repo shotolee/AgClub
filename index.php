@@ -66,12 +66,11 @@
 	 			if ($r){
 	 				$message = NULL;
 	 			}else {
-	 				echo '<p>'.mysqli_error($dbc). '<br /><br />Query: ' . $q . '</p>';
+                    echo '<p>'.mysqli_error($dbc). '<br /><br />Query: ' . $q . '</p>';
 	 			}	
 	 		}else{
 	 			$message = NULL;
-	 		}
-	 		mysqli_close ($dbc);
+               }
 	 	?>
             <div class="container column">
                 <a href="slimit.php">风险计算器</a>
@@ -79,7 +78,6 @@
 		</div>
 		<div class="two-thirds column">
 			<?php
-			require('../mysqli_connect.php');
 			$q2 = "SELECT  message_body AS ms , DATE_FORMAT(message_datetime, '%H:%i:%S %m-%d-%Y ')AS dt FROM haome ORDER BY message_datetime DESC;
 ";
 			$r2 = @mysqli_query ($dbc, $q2);
@@ -96,7 +94,7 @@
           } else {
                echo "<p> none </p>";
                } 
-			mysqli_close ($dbc); 
+			mysqli_close($dbc); 
 		?>
 		</div>
 	</div><!-- container -->
