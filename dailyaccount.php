@@ -8,7 +8,7 @@
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title>Leitu&Haome</title>
+	<title>DailyAccount</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -44,24 +44,25 @@
 	<div class="container">
 		<div class="sixteen columns">
 			<h2 class="remove-bottom" style="margin-top: 40px">Leitu&Haome</h2>
-			<h5>Version 0.2.1</h5>
+			<h5>Version 0.2.0</h5>
 			<hr />
 		</div>
 		<div class="one-third column">
-      <form action="index.php" method="post">
+      <form action="" method="post">
         <div class="container column">
-          <textarea id="regularTextarea" name="message"></textarea>
+          <!--<textarea id="regularTextarea" name="amount"></textarea>-->
+          <input type="text" name="account" size="20" maxlength="40">
         </div>
         <div class="container column">
-          <input type="submit" value="Upload">
+          <input type="submit" value="upload">
         </div>
       </form>
       <!--phpupload-->
 	 	<?php
 	 	require('mysqli_connect.php');
-	 		if(!empty($_POST['message'])){
-	 			$message = $_POST['message'];
-	 			$q = "INSERT INTO haome (message_body, message_datetime) VALUES ('$message',NOW())";
+	 		if(!empty($_POST['account'])){
+	 			$account = $_POST['account'];
+	 			$q = "INSERT INTO accounts (account, account_date) VALUES ('$account',NOW())";
 	 			$r = @mysqli_query ($dbc, $q);
 	 			if ($r){
 	 				$message = NULL;
@@ -73,24 +74,18 @@
                }
 //mysqli_close($dbc);
 	 	?>
-            <div class="container column">
-            	<ul>
-            		<li><a href="slimit.php">风险计算器</a></li>
-                    <li><a href="dailyaccount.php">EveryDay</a></li>
-                </ul>
-            </div> 
 		</div>
 		<div class="two-thirds column">
 			<?php
 			//require('mysqli_connect.php');
-			$q2 = "SELECT  message_body AS ms , DATE_FORMAT(message_datetime, '%H:%i:%S %m-%d-%Y ')AS dt FROM haome ORDER BY message_datetime DESC;
+			$q2 = "SELECT  account AS ac , DATE_FORMAT(account_date, '%m-%d-%Y ')AS dt FROM accounts ORDER BY account_date DESC;
 ";
 			$r2 = @mysqli_query ($dbc, $q2);
 			$num = mysqli_num_rows($r2);
 			if ( $num > 0 ) {
 				echo '<div>';
                while ($row2 = mysqli_fetch_array($r2, MYSQLI_ASSOC)) { 
-	               echo '<h4>' . $row2 ['ms'] .'</h4>';
+	               echo '<h4>' . $row2 ['ac'] .'</h4>';
 	               echo '<p>' . $row2 ['dt'] . '</p>';
 	               echo '<hr />';
                } 
