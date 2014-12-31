@@ -8,7 +8,7 @@ include ('includes/header.html');
 	<div class="col-md-4 col-sm-12">
 		<form class="form-horizontal" role="form" action="" method="post">
 			<div class="form-group">
-				<input type="text" name="account" size="20" maxlength="40">
+				<input class="form-control" type="text" name="account" size="20" maxlength="40">
 			</div>
 			<div class="form-group">
 				<input type="submit" class="btn btn-success" value="Upload">
@@ -33,7 +33,7 @@ include ('includes/header.html');
 	     //输入完成
 		 echo '</div>';
 		 echo '<div class="col-md-8 col-sm-12">';
-
+/*
 			//require('mysqli_connect.php');
 			$q2 = "SELECT  account AS ac , DATE_FORMAT(account_date, '%m-%d-%Y ')AS dt FROM accounts ORDER BY account_date DESC;
 ";
@@ -47,10 +47,10 @@ include ('includes/header.html');
 	               echo '<hr />';
                } 
                echo '</div>';
-               /* mysqli_free_result ($r2); */
           } else {
                echo "<p> none </p>";
                } 
+               */
 			mysqli_close($dbc); 
 		?>
 
