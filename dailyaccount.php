@@ -61,7 +61,7 @@
 	 	<?php
 	 	require('mysqli_connect.php');
 	 		if(!empty($_POST['account'])){
-	 			$account = $_POST['account'];
+	 			$account = mysqli_real_escape_string($dbc, $_POST['account']);
 	 			$q = "INSERT INTO accounts (account, account_date) VALUES ('$account',NOW())";
 	 			$r = @mysqli_query ($dbc, $q);
 	 			if ($r){

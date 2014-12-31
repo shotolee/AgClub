@@ -1,109 +1,58 @@
-<!DOCTYPE html>
-<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html lang="zh-CN"> <!--<![endif]-->
-<head>
+<?php 
 
-	<!-- Basic Page Needs
-  ================================================== -->
-	<meta charset="utf-8">
-	<title>Leitu&Haome</title>
-	<meta name="description" content="">
-	<meta name="author" content="">
+$page_title = 'Haome&Leitu';
+include ('includes/header.html');
 
-	<!-- Mobile Specific Metas
-  ================================================== -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+?>
 
-	<!-- CSS
-  ================================================== -->
-	<link rel="stylesheet" href="stylesheets/base.css">
-	<link rel="stylesheet" href="stylesheets/skeleton.css">
-	<link rel="stylesheet" href="stylesheets/layout.css">
+<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<form class="form-horizontal" role="form" action="" method="post">
+			<div class="form-group">
+				<textarea class="form-control" rows="3" name="message"></textarea>
+			</div>
+			<div class="form-group">
+				<input type="submit" class="btn btn-success" value="Upload">
+			</div>
+		</form>
+		<?php	 	
+		require('mysqli_connect.php');
+		if(!empty($_POST['message'])){
+		 	$message = mysqli_real_escape_string($dbc, $_POST['message']);
+		 	$q = "INSERT INTO haome (message_body, message_datetime) VALUES ('$message',NOW())";
+		 	$r = @mysqli_query ($dbc, $q);
+		 	if ($r){
+		 		$message = NULL;
+		 	}else {
+	            echo '<p>'.mysqli_error($dbc). '<br /><br />Query: ' . $q . '</p>';
+		 	}	
+		 }else{
+		 	$message = NULL;
+	        }
+		 echo '</div>';
+		 echo '<div class="col-md-8 col-sm-12">';
 
-	<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-
-	<!-- Favicons
-	================================================== -->
-	<link rel="shortcut icon" href="images/favicon.ico">
-	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-
-</head>
-<body>
-
-	<!-- Primary Page Layout
-	================================================== -->
-
-	<!-- Delete everything in this .container and get started on your own site! -->
-
-	<div class="container">
-		<div class="sixteen columns">
-			<h2 class="remove-bottom" style="margin-top: 40px">Leitu&Haome</h2>
-			<h5>Version 0.2.1</h5>
-			<hr />
-		</div>
-		<div class="one-third column">
-      <form action="index.php" method="post">
-        <div class="container column">
-          <textarea id="regularTextarea" name="message"></textarea>
-        </div>
-        <div class="container column">
-          <input type="submit" value="Upload">
-        </div>
-      </form>
-      <!--phpupload-->
-	 	<?php
-	 	require('mysqli_connect.php');
-	 		if(!empty($_POST['message'])){
-	 			$message = $_POST['message'];
-	 			$q = "INSERT INTO haome (message_body, message_datetime) VALUES ('$message',NOW())";
-	 			$r = @mysqli_query ($dbc, $q);
-	 			if ($r){
-	 				$message = NULL;
-	 			}else {
-                    echo '<p>'.mysqli_error($dbc). '<br /><br />Query: ' . $q . '</p>';
-	 			}	
-	 		}else{
-	 			$message = NULL;
-               }
-//mysqli_close($dbc);
-	 	?>
-            <div class="container column">
-            	<ul>
-            		<li><a href="slimit.php">风险计算器</a></li>
-                    <li><a href="dailyaccount.php">EveryDay</a></li>
-                </ul>
-            </div> 
-		</div>
-		<div class="two-thirds column">
-			<?php
-			//require('mysqli_connect.php');
+		//require('mysqli_connect.php');
 			$q2 = "SELECT  message_body AS ms , DATE_FORMAT(message_datetime, '%H:%i:%S %m-%d-%Y ')AS dt FROM haome ORDER BY message_datetime DESC;
-";
+		";
 			$r2 = @mysqli_query ($dbc, $q2);
 			$num = mysqli_num_rows($r2);
 			if ( $num > 0 ) {
 				echo '<div>';
-               while ($row2 = mysqli_fetch_array($r2, MYSQLI_ASSOC)) { 
-	               echo '<h4>' . $row2 ['ms'] .'</h4>';
-	               echo '<p>' . $row2 ['dt'] . '</p>';
-	               echo '<hr />';
-               } 
-               echo '</div>';
-               /* mysqli_free_result ($r2); */
-          } else {
-               echo "<p> none </p>";
-               } 
+		        while ($row2 = mysqli_fetch_array($r2, MYSQLI_ASSOC)) { 
+			        echo '<h4>' . $row2 ['ms'] .'</h4>';
+			        echo '<p>' . $row2 ['dt'] . '</p>';
+			        echo '<hr />';
+		        } 
+		        echo '</div>';
+
+		    } else {
+		        echo "<p> none </p>";
+		    } 
 			mysqli_close($dbc); 
 		?>
-		</div>
-	</div><!-- container -->
-<!-- End Document
-================================================== -->
-</body>
-</html>
+	</div>
+</div>
+<?php
+  include ('includes/footer.html');
+?>
