@@ -62,10 +62,10 @@ include ('includes/header.html');
 		 $q2 = "SELECT  message_body AS ms , DATE_FORMAT(message_datetime, '%H:%i:%S %m-%d-%Y ')AS dt FROM haome ORDER BY message_datetime DESC LIMIT $start, $display";
 		 $r2 = @mysqli_query ($dbc, $q2);
 
-		 echo '<div>';
+		 echo '<div class="jumbotron">';
 		 while ($row = mysqli_fetch_array($r2, MYSQLI_ASSOC)) {
-			echo '<h4>' . $row ['ms'] .'</h4>';
-			echo '<p>' . $row ['dt'] . '</p>';
+			echo '<p>' . $row ['ms'] .'</p>';
+			echo '<p class="text-muted">' . $row ['dt'] . '</p>';
 			echo '<hr />';
 		 } 
 		 echo '</div>';
@@ -74,12 +74,11 @@ include ('includes/header.html');
  		 mysqli_close($dbc);
 
  		 if ($pages >1) {
- 				echo '<br /><p>';
+ 				echo '<div><p class="pagination-lg pager">';
  				$current_page = ($start/$display) + 1;
 
  				if ($current_page != 1) {
- 					echo '<a href="index.php?s='. ($start - $display). '&p=' . $pages .'">Previous</a>
- 					';
+ 					echo '<a href="index.php?s='. ($start - $display). '&p=' . $pages .'">Previous</a>';
  				}
 
  				for ($i = 1; $i <= $pages; $i++) {
@@ -94,6 +93,7 @@ include ('includes/header.html');
  					echo '<a href="index.php?s='.($start + $display). '&p=' .$pages . '">Next</a>';
  				}
  			}
+ 			echo '</p></div>';
 		?>
 	</div>
 </div>
