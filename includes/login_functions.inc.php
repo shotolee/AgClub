@@ -32,7 +32,7 @@ function check_login($dbc, $email='', $pass = ''){
 		$q = "SELECT user_id, first_name FROM users WHERE email='$e' AND pass=SHA1('$p')";
 		$r = @mysqli_query ($dbc, $q);
 
-		if (mysqli_num_row($r) == 1) {
+		if (mysqli_num_rows($r) == 1) {
 			$row = mysqli_fetch_array ($r, MYSQLI_ASSOC);
 
 			return array(true, $row);

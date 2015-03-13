@@ -11,10 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 	if ($check) {
 
-		setcookie ('user_id'$data['user_id'], time()+3600, '/', '', 0, 0);
+		setcookie ('user_id', $data['user_id'], time()+3600, '/', '', 0, 0);
 		setcookie ('first_name', $data['first_name'], time()+3600, '/', '',0,0);
 
-		redirect_user('loggedin.php');
+		redirect_user('./loggedin.php');
 	} else {
 		$errors = $data;
 	}

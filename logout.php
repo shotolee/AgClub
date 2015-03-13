@@ -15,6 +15,6 @@ include ('includes/header.html');
 echo "<h1>Logged Out!</h1>
 <p>You are now logged out, {$_COOKIE['first_name']}!</p>";
 
-include ('include/footer.html');
+include ('includes/footer.html');
 
 ?>
